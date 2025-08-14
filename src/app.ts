@@ -5,6 +5,8 @@ import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
+import databasePlugin from "./plugins/database.plugin";
+import { quoteRoutes } from "./routes/quote.routes";
 
 
 const app = Fastify({
@@ -50,6 +52,9 @@ async function buildApp() {
       produces: ["application/json"],
     },
   });
+
+  await app.register(databasePlugin);
+  await app.register(quoteRoutes, { prefix: "/api/v1" });
     return app;
 }
 
