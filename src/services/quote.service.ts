@@ -45,19 +45,15 @@ export class QuoteService {
         }
       }
 
-      // Try to get from local database first
       const localQuotes = await this.collection.find({}).toArray();
 
       if (localQuotes.length > 0 && Math.random() > 0.3) {
-        // 70% chance to return local quote
         const randomIndex = Math.floor(Math.random() * localQuotes.length);
         return localQuotes[randomIndex];
       }
 
-      // Fetch new quote from external API
       const externalQuote = await this.externalQuoteService.fetchRandomQuote();
 
-      // Store in database if not exists
       await this.collection.updateOne(
         { id: externalQuote.id },
         { $setOnInsert: externalQuote },

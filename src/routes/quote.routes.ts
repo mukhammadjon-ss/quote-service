@@ -58,6 +58,7 @@ export async function quoteRoutes(
   fastify.post(
     "/quotes/:id/like",
     {
+      preHandler: [fastify.authenticate],
       schema: {
         summary: "Like a quote",
         params: Type.Object({
@@ -92,6 +93,7 @@ export async function quoteRoutes(
   fastify.delete(
     "/quotes/:id/like",
     {
+      preHandler: [fastify.authenticate],
       schema: {
         summary: "Unlike a quote",
         params: Type.Object({

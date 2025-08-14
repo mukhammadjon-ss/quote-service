@@ -7,6 +7,9 @@ import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import databasePlugin from "./plugins/database.plugin";
 import { quoteRoutes } from "./routes/quote.routes";
+import graphqlPlugin from "./graphql/graphql.plugin";
+import authPlugin from "./plugins/auth.plugin";
+import { authRoutes } from "./routes/auth.routes";
 
 
 const app = Fastify({
@@ -54,7 +57,16 @@ async function buildApp() {
   });
 
   await app.register(databasePlugin);
+  await app.register(authPlugin);
+  await app.register(graphqlPlugin);
+
+  await app.register(authRoutes, { prefix: "/api/v1" });
   await app.register(quoteRoutes, { prefix: "/api/v1" });
+
+  app.get("/health", async () => {
+    return { status: "healthy", timestamp: new Date().toISOString() };
+  });
+
     return app;
 }
 
