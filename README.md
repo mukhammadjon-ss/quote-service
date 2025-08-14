@@ -23,7 +23,7 @@ A modern GraphQL API for managing inspirational quotes with user authentication 
 
 ```bash
 # Clone and install
-git clone https://github.com/yourusername/quote-service.git
+git clone https://github.com/mukhammadjon-ss/quote-service.git
 cd quote-service
 npm install
 
