@@ -225,7 +225,6 @@ export const resolvers = {
 
     unlikeQuote: async (_: any, { id }: { id: string }, context: any) => {
       try {
-        // console.log(context.user);
         const userId = context.user?.userId;
         return await context.quoteService.unlikeQuote(id, userId);
       } catch (error) {
